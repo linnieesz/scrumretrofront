@@ -1,0 +1,586 @@
+/* Header Vinho */
+.detail-header {
+  background-color: #8C4366;
+  color: #FFFFFF;
+  padding: 0.75rem 2rem;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.breadcrumb-divider {
+  opacity: 0.5;
+}
+
+.project-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.btn-team {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  border: none;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* Perfil Usuário */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.avatar-header {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.user-role {
+  font-size: 0.68rem;
+  opacity: 0.8;
+}
+
+.btn-logout {
+  color: #FFFFFF;
+  opacity: 0.8;
+  font-size: 0.8rem;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+/* Layout Geral da Página */
+.page-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+/* Banner Superior */
+.sprint-banner-card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+}
+
+.sprint-header-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.sprint-header-title h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2B1820;
+  margin: 0;
+  font-family: serif;
+}
+
+.badge-status-running {
+  background-color: #FEF3D6;
+  color: #D9A233;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+}
+
+.sprint-dates {
+  color: #8C827A;
+  font-size: 0.85rem;
+  margin: 0.35rem 0 0.85rem 0;
+}
+
+.sprint-goal {
+  color: #2B1820;
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.btn-finish-sprint {
+  background-color: #8C4366;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-finish-sprint:hover {
+  background-color: #723452;
+}
+
+/* Grid Layout */
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 1.5rem;
+}
+
+/* Card Progresso */
+.progress-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.progress-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2B1820;
+}
+
+.progress-fraction {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #8C4366;
+  font-family: serif;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background-color: #F3EFEA;
+  border-radius: 4px;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background-color: #8C4366;
+  border-radius: 4px;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.task-item {
+  background-color: #F9F8F6;
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.task-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.task-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.task-status-dot.concluído { background-color: #2E7D32; }
+.task-status-dot.em-andamento { background-color: #D9A233; }
+.task-status-dot.a-fazer { background-color: #8C827A; }
+
+.task-title {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #2B1820;
+}
+
+.task-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.task-avatar {
+  width: 24px;
+  height: 24px;
+  background-color: #8C4366;
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 0.65rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-badge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.25rem 0.55rem;
+  border-radius: 6px;
+}
+
+.status-badge.concluído { background-color: #E8F5E9; color: #2E7D32; }
+.status-badge.em-andamento { background-color: #FFF8E1; color: #B78103; }
+.status-badge.a-fazer { background-color: #EFEBE9; color: #6D4C41; }
+
+/* Direita: Equipe e Velocity */
+.right-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.team-card h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #2B1820;
+}
+
+.team-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.team-member-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.member-avatar {
+  width: 32px;
+  height: 32px;
+  background-color: #8C4366;
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.member-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #2B1820;
+}
+
+.member-role-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.45rem;
+  border-radius: 10px;
+  margin-top: 0.15rem;
+}
+
+.member-role-badge.admin { background-color: #2B1820; color: #FFFFFF; }
+.member-role-badge.manager { background-color: #8C4366; color: #FFFFFF; }
+.member-role-badge.membro { background-color: #EAE5DC; color: #6D6359; }
+
+/* Velocity Card */
+.velocity-card {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.velocity-title {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #A39B91;
+  letter-spacing: 1px;
+}
+
+.velocity-value {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: #8C4366;
+  font-family: serif;
+  line-height: 1;
+  margin: 0.25rem 0;
+}
+
+.velocity-unit {
+  font-size: 0.75rem;
+  color: #8C827A;
+}
+
+/* Card Sugestões */
+.suggestions-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.suggestions-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2B1820;
+}
+
+.badge-previous-sprint {
+  background-color: #F3EFEA;
+  color: #8C827A;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.suggestions-subtitle {
+  font-size: 0.8rem;
+  color: #8C827A;
+  margin: 0.35rem 0 1.25rem 0;
+}
+
+.suggestions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.suggestion-item {
+  background-color: #F9F8F6;
+  border: 1px solid #EAE5DC;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.suggestion-text {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #2B1820;
+  margin: 0 0 0.85rem 0;
+}
+
+.suggestion-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag-btn {
+  background-color: #FFFFFF;
+  border: 1px solid #E0D8CC;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  color: #5C5248;
+  transition: all 0.2s;
+}
+
+.tag-btn:hover {
+  background-color: #F0EBE1;
+}
+
+/* Estilos de Seleção Ativa */
+.tag-btn.active.tag-tomada {
+  background-color: #E8F5E9;
+  border-color: #2E7D32;
+  color: #2E7D32;
+}
+
+.tag-btn.active.tag-util {
+  background-color: #F3E5F5;
+  border-color: #8C4366;
+  color: #8C4366;
+}
+
+.tag-btn.active.tag-nao-tomada {
+  background-color: #FFEBEE;
+  border-color: #C62828;
+  color: #C62828;
+}
+
+.tag-btn.active.tag-inutil {
+  background-color: #FFF8E1;
+  border-color: #D9A233;
+  color: #B78103;
+}
+
+/* Responsividade */
+@media (max-width: 850px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .sprint-banner-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .btn-finish-sprint {
+    width: 100%;
+  }
+}
+/* Ações do banner */
+.sprint-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: stretch;
+}
+
+.btn-outline-sprint {
+  background-color: #FFFFFF;
+  color: #8C4366;
+  border: 1px solid #8C4366;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.btn-outline-sprint:hover:not(:disabled) {
+  background-color: #8C4366;
+  color: #FFFFFF;
+}
+
+.btn-finish-sprint:disabled,
+.btn-outline-sprint:disabled,
+.tag-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Estados */
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 40vh;
+  text-align: center;
+  gap: 0.75rem;
+  color: #5C4B23;
+}
+
+.state-icon { font-size: 3rem; }
+
+.empty-text { color: #8C827A; font-size: 0.85rem; margin: 0.5rem 0 0 0; }
+
+.alert-error {
+  background-color: #FFEBEE;
+  border: 1px solid #F3C6CB;
+  color: #C62828;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.origin-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #6D6359;
+  background-color: #EAE5DC;
+  padding: 0.1rem 0.45rem;
+  border-radius: 10px;
+  margin-left: 0.4rem;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .sprint-actions { width: 100%; }
+}

@@ -1,0 +1,54 @@
+<div class="member-search">
+  @if (isAdmin()) {
+  <div class="form-group">
+    <label for="ms-company">Empresa</label>
+    <select id="ms-company" (change)="onCompanySelected($event)">
+      @for (c of companies(); track c.id) {
+      <option [value]="c.id" [selected]="c.id === companyId()">{{ c.name }}</option>
+      }
+    </select>
+  </div>
+  }
+
+  @if (noCompany()) {
+  <p class="hint-text">
+    @if (isAdmin()) {
+    Nenhuma empresa ativa cadastrada. Crie uma em "Empresas".
+    } @else {
+    Você ainda não está vinculado a uma empresa. Peça a um administrador para vinculá-lo.
+    }
+  </p>
+  } @else {
+
+  <input type="text" class="search-input" [formControl]="searchControl" placeholder="Buscar por nome...">
+
+  @if (error()) {
+  <div class="alert-error" role="alert">{{ error() }}</div>
+  }
+
+  <div class="members-list results">
+    @if (isSearching()) {
+    <p class="hint-text">Buscando...</p>
+    } @else if (availableResults().length === 0) {
+    <p class="hint-text">Nenhuma pessoa encontrada.</p>
+    } @else {
+    @for (u of availableResults(); track u.id) {
+    <div class="member-row">
+      <div class="member-info-group">
+        <span class="member-avatar">{{ initialsOf(u.fullName) }}</span>
+        <div class="member-details">
+          <span class="member-name">{{ u.fullName }}</span>
+          <span class="member-meta">
+            {{ u.department || 'Sem departamento' }} &middot; {{ roleLabel(u.role) }}
+          </span>
+        </div>
+      </div>
+      <button type="button" class="btn-action btn-add" [disabled]="busyId() === u.id" (click)="add.emit(u)">
+        {{ busyId() === u.id ? '...' : 'Adicionar' }}
+      </button>
+    </div>
+    }
+    }
+  </div>
+  }
+</div>

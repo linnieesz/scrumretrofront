@@ -1,0 +1,76 @@
+.member-search { display: flex; flex-direction: column; gap: 0.75rem; }
+
+.form-group { display: flex; flex-direction: column; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: #2B1820; margin-bottom: 0.3rem; }
+
+select, .search-input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #EAE2D8;
+  border-radius: 8px;
+  background-color: #FAFAFA;
+  font-size: 0.85rem;
+  outline: none;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+select:focus, .search-input:focus { border-color: #8C4366; background-color: #FFFFFF; }
+
+.members-list { display: flex; flex-direction: column; gap: 0.6rem; }
+.members-list.results { max-height: 260px; overflow-y: auto; }
+
+.member-row {
+  background-color: #F9F8F6;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.member-info-group { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+
+.member-avatar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background-color: #8C4366;
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-details { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.member-name { font-size: 0.9rem; font-weight: 800; color: #2B1820; }
+.member-meta { font-size: 0.72rem; color: #8C827A; }
+
+.btn-action {
+  border: none;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+.btn-add { background-color: #EAE5DC; color: #5C5248; }
+.btn-add:hover:not(:disabled) { background-color: #DFD8CC; }
+.btn-action:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.hint-text { color: #8C827A; font-size: 0.82rem; text-align: center; margin: 0.5rem 0; }
+
+.alert-error {
+  background-color: #FFEBEE;
+  border: 1px solid #F3C6CB;
+  color: #C62828;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+}

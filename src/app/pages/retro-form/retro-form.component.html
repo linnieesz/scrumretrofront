@@ -1,0 +1,108 @@
+
+
+<!-- Área do Formulário -->
+<main class="page-container">
+  <!-- Título da Página -->
+  <div class="page-title-section">
+    <h1 class="page-title">Seu espaço 🔒</h1>
+    <p class="page-subtitle">
+      Suas respostas são <strong>anônimas</strong> &mdash; ninguém saberá o que você escreveu. Seja honesto(a)!
+    </p>
+  </div>
+
+  @if (isLoading()) {
+  <div class="state-box"><p>Carregando sprint...</p></div>
+  } @else if (!sprint()) {
+  <div class="state-box">
+    <span class="state-icon">🗓️</span>
+    <p>Este projeto ainda não tem sprint. Peça a um Manager para criar a primeira.</p>
+    <a class="btn-back-link" [routerLink]="['/projects', projectId]">Voltar ao projeto</a>
+  </div>
+  } @else {
+
+  <div class="ceremony-bar">
+    <span class="ceremony-sprint">Sprint {{ sprint()!.number }}{{ canSubmit() ? '' : ' (encerrada)' }} &middot; Retrospectiva</span>
+  </div>
+
+  @if (!canSubmit()) {
+  <div class="alert-error" role="alert">Esta sprint foi encerrada e não aceita novos cards.</div>
+  }
+  @if (myCardsCount() > 0) {
+  <p class="my-cards-note">Você já enviou {{ myCardsCount() }} {{ myCardsCount() === 1 ? 'card' : 'cards' }} nesta retrospectiva.</p>
+  }
+  @if (errorMessage()) {
+  <div class="alert-error" role="alert">{{ errorMessage() }}</div>
+  }
+
+  <form [formGroup]="retroForm" (ngSubmit)="onSubmit()" class="retro-form">
+    
+    <!-- 1. O que foi bom? -->
+    <div class="card retro-card">
+      <h2 class="card-title">🌟 O que foi bom?</h2>
+      <div class="input-wrapper bg-green">
+        <textarea 
+          formControlName="whatWentWell" 
+          placeholder="O que funcionou bem nesta sprint..."
+          rows="3">
+        </textarea>
+      </div>
+    </div>
+
+    <!-- 2. O que foi ruim? -->
+    <div class="card retro-card">
+      <h2 class="card-title">⚡ O que foi ruim?</h2>
+      <div class="input-wrapper bg-red">
+        <textarea 
+          formControlName="whatWentBad" 
+          placeholder="O que travou ou frustrou..."
+          rows="3">
+        </textarea>
+      </div>
+    </div>
+
+    <!-- 3. O que pode melhorar? -->
+    <div class="card retro-card">
+      <h2 class="card-title">🔧 O que pode melhorar?</h2>
+      <div class="input-wrapper bg-yellow">
+        <textarea 
+          formControlName="whatToImprove" 
+          placeholder="Algo que poderíamos fazer diferente..."
+          rows="3">
+        </textarea>
+      </div>
+    </div>
+
+    <!-- 4. Parabenização -->
+    <div class="card retro-card">
+      <h2 class="card-title">🎉 Parabenização</h2>
+      <div class="input-wrapper bg-purple">
+        <textarea 
+          formControlName="kudos" 
+          placeholder="Reconheça alguém ou o time inteiro..."
+          rows="3">
+        </textarea>
+      </div>
+    </div>
+
+    <!-- 5. Sugestão de melhoria -->
+    <div class="card retro-card">
+      <h2 class="card-title">💡 Sugestão de melhoria</h2>
+      <div class="input-wrapper bg-blue">
+        <textarea 
+          formControlName="suggestion" 
+          placeholder="(Opcional) Uma sugestão concreta para a próxima sprint..."
+          rows="3">
+        </textarea>
+      </div>
+    </div>
+
+    <!-- Botão Enviar -->
+    <div class="submit-container">
+      <button type="submit" class="btn-submit-retro" [disabled]="!canSubmit() || isSubmitting()">
+        {{ isSubmitting() ? 'Enviando...' : 'Enviar anonimamente 🚀' }}
+      </button>
+    </div>
+
+  </form>
+  }
+</main>

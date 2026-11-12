@@ -1,0 +1,209 @@
+<div class="register-wrapper">
+  <!-- Topo Decorativo Zig-Zag -->
+  <div class="zigzag-pattern top"></div>
+
+  <div class="register-container">
+    <!-- Header / Logo -->
+    <div class="brand-header">
+      <h1 class="brand-title">Sprint<span>Retro</span></h1>
+      <p class="brand-subtitle">Crie sua conta e comece a colaborar</p>
+    </div>
+
+    <!-- Indicador de Etapas (Step Progress) -->
+    <div class="steps-indicator">
+      <div class="step-item" [class.active]="currentStep() === 1" [class.completed]="currentStep() > 1">
+        <span class="step-number">1</span>
+        <span class="step-label">Dados pessoais</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step-item" [class.active]="currentStep() === 2">
+        <span class="step-number">2</span>
+        <span class="step-label">Acesso</span>
+      </div>
+    </div>
+
+    <!-- Card Principal -->
+    <div class="register-card">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <!-- ================= PASSO 1: DADOS PESSOAIS ================= -->
+        @if (currentStep() === 1) {
+        <div class="step-content">
+          <div class="card-header-text">
+            <h2 class="card-title">Seus dados</h2>
+            <p class="card-subtitle">Conte um pouco sobre você</p>
+          </div>
+
+          <!-- Nome e E-mail -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Nome completo <span class="required">*</span></label>
+              <input type="text" id="fullName" formControlName="fullName" placeholder="Ana Lima"
+                [class.invalid]="fieldInvalid('fullName')">
+              @if (fieldInvalid('fullName')) {
+              <small class="error-msg">O nome completo deve ter entre 3 e 150 caracteres.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label for="email">E-mail profissional <span class="required">*</span></label>
+              <input type="email" id="email" formControlName="email" placeholder="ana&#64;empresa.com"
+                [class.invalid]="fieldInvalid('email')">
+              @if (fieldInvalid('email')) {
+              <small class="error-msg">Por favor, insira um e-mail válido.</small>
+              }
+            </div>
+          </div>
+
+          <!-- Empresa (picker) -->
+          <div class="form-group">
+            <label for="companyId">Empresa <span class="required">*</span></label>
+            <select id="companyId" formControlName="companyId" [class.invalid]="fieldInvalid('companyId')">
+              <option value="" disabled>{{ companiesLoaded() ? 'Selecione sua empresa' : 'Carregando empresas...' }}</option>
+              @for (c of companies(); track c.id) {
+              <option [value]="c.id">{{ c.name }}</option>
+              }
+            </select>
+            @if (fieldInvalid('companyId')) {
+            <small class="error-msg">Selecione a empresa.</small>
+            } @else if (companiesLoaded() && companies().length === 0) {
+            <small class="error-msg">Nenhuma empresa cadastrada ainda. Peça a um administrador para criar a sua.</small>
+            }
+          </div>
+
+          <!-- Departamento e Telefone -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="department">Departamento</label>
+              <input type="text" id="department" formControlName="department" placeholder="Engenharia, Produto..."
+                [class.invalid]="fieldInvalid('department')">
+              @if (fieldInvalid('department')) {
+              <small class="error-msg">O departamento deve ter no máximo 100 caracteres.</small>
+              }
+            </div>
+            <div class="form-group">
+              <label for="phone">Telefone</label>
+              <input type="text" id="phone" formControlName="phone" placeholder="(11) 99999-9999"
+                [class.invalid]="fieldInvalid('phone')">
+              @if (fieldInvalid('phone')) {
+              <small class="error-msg">Informe um telefone válido (8 a 30 caracteres).</small>
+              }
+            </div>
+          </div>
+
+          <!-- Bio -->
+          <div class="form-group">
+            <label for="bio">Bio <span class="optional">(opcional)</span></label>
+            <textarea id="bio" formControlName="bio" rows="2"
+              placeholder="Fale brevemente sobre você, suas especialidades..."></textarea>
+          </div>
+
+          <!-- Dentro do Passo 1 - Tipo de Acesso (Radio Cards) -->
+          <div class="form-group">
+            <label class="group-label">Tipo de acesso <span class="required">*</span></label>
+
+            <div class="radio-cards-group">
+              @for (option of roles(); track option.value) {
+              <label class="radio-card" [class.selected]="registerForm.controls.role.value === option.value">
+                <div class="radio-info">
+                  <div class="radio-icon">{{ roleIcons[option.value] }}</div>
+                  <div>
+                    <span class="radio-title">{{ option.label }}</span>
+                    <span class="radio-desc">{{ option.description }}</span>
+                  </div>
+                </div>
+                <input type="radio" formControlName="role" [value]="option.value">
+              </label>
+              }
+            </div>
+          </div>
+
+          @if (errorMessage()) {
+          <div class="alert-error" role="alert">{{ errorMessage() }}</div>
+          }
+
+          <!-- Botão Continuar -->
+          <button type="button" class="btn-primary" (click)="goToStep2()">
+            Continuar &rarr;
+          </button>
+        </div>
+        }
+
+
+        <!-- ================= PASSO 2: DEFINIR SENHA ================= -->
+        @if (currentStep() === 2) {
+        <div class="step-content">
+          <!-- Resumo do Usuário criado -->
+          <div class="user-preview-badge">
+            <div class="preview-avatar">{{ initials }}</div>
+            <div class="preview-info">
+              <span class="preview-name">{{ firstName }}</span>
+              <span class="preview-role-pill">{{ roleDisplayName }}</span>
+            </div>
+          </div>
+
+          @if (errorMessage()) {
+          <div class="alert-error" role="alert">{{ errorMessage() }}</div>
+          }
+
+          <div class="card-header-text">
+            <h2 class="card-title">Defina sua senha</h2>
+            <p class="card-subtitle">Crie uma senha segura para sua conta</p>
+          </div>
+
+          <!-- Campo Senha -->
+          <div class="form-group">
+            <label for="password">Senha <span class="required">*</span></label>
+            <div class="password-input-container">
+              <input [type]="showPassword() ? 'text' : 'password'" id="password" formControlName="password"
+                placeholder="De 8 a 100 caracteres" [class.invalid]="fieldInvalid('password')">
+              <button type="button" class="btn-toggle-password" (click)="showPassword.set(!showPassword())">
+                {{ showPassword() ? 'Ocultar' : 'Mostrar' }}
+              </button>
+            </div>
+            @if (fieldInvalid('password')) {
+            <small class="error-msg">A senha deve ter de 8 a 100 caracteres, com letras e números.</small>
+            } @else {
+            <span class="input-hint">Mínimo de 8 caracteres, com letras e números.</span>
+            }
+          </div>
+
+          <!-- Campo Confirmar Senha -->
+          <div class="form-group">
+            <label for="confirmPassword">Confirmar senha <span class="required">*</span></label>
+            <div class="password-input-container">
+              <input [type]="showConfirmPassword() ? 'text' : 'password'" id="confirmPassword"
+                formControlName="confirmPassword" placeholder="Repita a senha"
+                [class.invalid]="registerForm.errors?.['passwordMismatch'] && registerForm.controls.confirmPassword.touched">
+              <button type="button" class="btn-toggle-password" (click)="showConfirmPassword.set(!showConfirmPassword())">
+                {{ showConfirmPassword() ? 'Ocultar' : 'Mostrar' }}
+              </button>
+            </div>
+            @if (registerForm.errors?.['passwordMismatch'] && registerForm.controls.confirmPassword.touched) {
+            <small class="error-msg">As senhas não coincidem.</small>
+            }
+          </div>
+
+          <!-- Botões Voltar e Criar Conta -->
+          <div class="form-actions">
+            <button type="button" class="btn-secondary" (click)="prevStep()">
+              &larr; Voltar
+            </button>
+            <button type="submit" class="btn-primary" [disabled]="registerForm.invalid || isSubmitting()">
+              {{ isSubmitting() ? 'Criando conta...' : 'Criar conta 🚀' }}
+            </button>
+          </div>
+        </div>
+        }
+
+      </form>
+    </div>
+
+    <!-- Link de Rodapé -->
+    <div class="login-footer">
+      Já tem uma conta? <a routerLink="/login">Entrar</a>
+    </div>
+  </div>
+
+  <!-- Rodapé Decorativo Zig-Zag -->
+  <div class="zigzag-pattern bottom"></div>
+</div>

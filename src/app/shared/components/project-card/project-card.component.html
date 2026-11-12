@@ -1,0 +1,23 @@
+<div class="project-card" (click)="onSelect()">
+  <!-- Ícone do Projeto -->
+  <div class="card-icon">
+    <span>{{ icon }}</span>
+  </div>
+
+  <!-- Título -->
+  <h3 class="card-title">{{ project.name }}</h3>
+
+  <!-- Dono e quantidade de membros -->
+  <div class="members-container">
+    <div class="avatar-group">
+      <span class="avatar" [title]="project.ownerName">{{ ownerInitials }}</span>
+    </div>
+    <span class="members-count">{{ membersText }}</span>
+  </div>
+
+  <!-- Dono do projeto -->
+  <div class="sprint-status">
+    <span class="status-dot"></span>
+    <span class="sprint-text">{{ project.isOwner ? 'Você é o dono' : 'Dono: ' + project.ownerName }}</span>
+  </div>
+</div>

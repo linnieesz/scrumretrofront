@@ -1,0 +1,264 @@
+/* Header Vinho */
+.detail-header {
+  background-color: #8C4366;
+  color: #FFFFFF;
+  padding: 0.75rem 2rem;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.breadcrumb-divider {
+  opacity: 0.5;
+}
+
+.project-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.avatar-header {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-name {
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.user-role {
+  font-size: 0.68rem;
+  opacity: 0.8;
+}
+
+.btn-logout {
+  color: #FFFFFF;
+  opacity: 0.8;
+  font-size: 0.8rem;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+/* Container Principal */
+.page-container {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem 1.5rem;
+}
+
+.page-title-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #2B1820;
+  margin: 0 0 0.5rem 0;
+  font-family: serif;
+}
+
+.page-subtitle {
+  color: #5C4B23;
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+/* Formulário e Cards */
+.retro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #2B1820;
+  margin: 0 0 1rem 0;
+  font-family: serif;
+}
+
+/* Caixas de Texto com Fundo Colorido Suave */
+.input-wrapper {
+  border-radius: 10px;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  background: transparent;
+  resize: vertical;
+  outline: none;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: #2B1820;
+  box-sizing: border-box;
+  padding: 0.5rem;
+}
+
+textarea::placeholder {
+  color: #9A9086;
+}
+
+/* Cores de Fundo dos Inputs */
+.bg-green {
+  background-color: #EBF7EE;
+  border-color: #D4ECD9;
+}
+
+.bg-red {
+  background-color: #FDF0F0;
+  border-color: #FAAEAE;
+}
+
+.bg-yellow {
+  background-color: #FFFCEB;
+  border-color: #F7EFCA;
+}
+
+.bg-purple {
+  background-color: #F8F3F7;
+  border-color: #EADCE7;
+}
+
+.bg-blue {
+  background-color: #F0F7FB;
+  border-color: #D9EBF5;
+}
+
+/* Botão Enviar */
+.submit-container {
+  margin-top: 1rem;
+}
+
+.btn-submit-retro {
+  width: 100%;
+  background-color: #C39278; /* Tom marrom/terracota suave igual ao da foto */
+  color: #FFFFFF;
+  border: none;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-submit-retro:hover {
+  opacity: 0.9;
+}
+/* Seletor de cerimônia, estados e alertas */
+.ceremony-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.ceremony-sprint { font-weight: 800; color: #2B1820; }
+.ceremony-toggle {
+  display: inline-flex;
+  background-color: #FFFFFF;
+  border-radius: 20px;
+  padding: 3px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+}
+.ceremony-toggle button {
+  border: none;
+  background: none;
+  padding: 0.35rem 0.9rem;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #5C5248;
+  cursor: pointer;
+}
+.ceremony-toggle button.active { background-color: #8C4366; color: #FFFFFF; }
+.my-cards-note { color: #5C4B23; font-size: 0.8rem; margin: 0 0 1rem 0; }
+.state-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  min-height: 30vh;
+  justify-content: center;
+  color: #5C4B23;
+}
+.state-icon { font-size: 3rem; }
+.btn-back-link {
+  background-color: #8C4366;
+  color: #FFFFFF;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.alert-error {
+  background-color: #FFEBEE;
+  border: 1px solid #F3C6CB;
+  color: #C62828;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.btn-submit-retro:disabled { opacity: 0.6; cursor: not-allowed; }

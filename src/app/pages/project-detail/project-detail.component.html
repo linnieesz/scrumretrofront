@@ -1,0 +1,155 @@
+<main class="page-container">
+
+  @if (isLoading()) {
+  <div class="state-box"><p>Carregando projeto...</p></div>
+  } @else if (errorMessage()) {
+  <div class="state-box">
+    <span class="state-icon">⚠️</span>
+    <p>{{ errorMessage() }}</p>
+    <button type="button" class="btn-finish-sprint" (click)="load()">Tentar novamente</button>
+  </div>
+  } @else {
+
+  @if (actionError()) {
+  <div class="alert-error" role="alert">{{ actionError() }}</div>
+  }
+
+  <!-- 1. Banner Superior da Sprint -->
+  <section class="sprint-banner-card">
+    <div class="sprint-info">
+      @if (currentSprint(); as sprint) {
+      <div class="sprint-header-title">
+        <h2>Sprint {{ sprint.number }}</h2>
+        <span class="badge-status-running">{{ sprintStatusText() }}</span>
+      </div>
+      <p class="sprint-dates">
+        {{ isScheduled() ? 'Inicia em ' : '' }}{{ formatDateOnly(sprint.startDate) }} &mdash; {{ sprint.closedAt ? dateText(sprint.closedAt) : 'em andamento' }}
+      </p>
+      } @else {
+      <div class="sprint-header-title">
+        <h2>{{ project()?.name }}</h2>
+        <span class="badge-status-running">Sem sprint</span>
+      </div>
+      <p class="sprint-dates">Nenhuma sprint criada ainda.</p>
+      }
+      @if (project()?.description) {
+      <p class="sprint-goal">🎯 {{ project()?.description }}</p>
+      }
+    </div>
+
+    <div class="sprint-actions">
+      @if (hasOpenSprint()) {
+      <button type="button" class="btn-finish-sprint" (click)="goToRetro()">📝 Participar da retro</button>
+      }
+      @if (currentSprint()) {
+      <a class="btn-outline-sprint" [routerLink]="['/projects', projectId, 'live-board']">📋 Quadro ao vivo</a>
+      }
+      @if (canManage()) {
+        <a class="btn-outline-sprint" [routerLink]="['/projects', projectId, 'edit']">✏️ Editar projeto</a>
+        @if (hasOpenSprint()) {
+        <button type="button" class="btn-outline-sprint" [disabled]="isBusy()" (click)="closeSprint()">🏁 Encerrar sprint</button>
+        } @else {
+        <button type="button" class="btn-finish-sprint" [disabled]="isBusy()" (click)="createSprint()">➕ Nova sprint</button>
+        }
+      }
+    </div>
+  </section>
+
+  <!-- Grid Principal (Esquerda: cards da sprint / Direita: equipe e sprints) -->
+  <div class="dashboard-grid">
+
+    <div class="left-column">
+      <section class="card progress-card">
+        <div class="progress-header">
+          <h3>Cards da sprint</h3>
+          <span class="progress-fraction">{{ boardCards().length }}</span>
+        </div>
+
+        @if (currentSprint()) {
+        <ul class="task-list">
+          @for (row of cardRows(); track row.type) {
+          <li class="task-item">
+            <div class="task-title-group">
+              <span [class]="'task-status-dot ' + row.dot"></span>
+              <span class="task-title">{{ row.label }}</span>
+            </div>
+            <div class="task-meta">
+              <span class="task-avatar">{{ row.count }}</span>
+            </div>
+          </li>
+          }
+        </ul>
+        } @else {
+        <p class="empty-text">Crie a primeira sprint para começar a receber cards.</p>
+        }
+      </section>
+    </div>
+
+    <div class="right-column">
+      <section class="card team-card">
+        <h3>Equipe</h3>
+        <ul class="team-list">
+          @for (member of members(); track member.userId) {
+          <li class="team-member-item">
+            <span class="member-avatar">{{ initialsOf(member.fullName) }}</span>
+            <div class="member-info">
+              <span class="member-name">{{ member.fullName }}{{ member.isOwner ? ' 👑' : '' }}</span>
+              <span [class]="'member-role-badge ' + roleClass(member.role)">{{ roleLabel(member.role) }}</span>
+            </div>
+          </li>
+          } @empty {
+          <li class="empty-text">Nenhum membro.</li>
+          }
+        </ul>
+      </section>
+
+      <section class="card velocity-card">
+        <span class="velocity-title">SPRINTS</span>
+        <span class="velocity-value">{{ sprints().length }}</span>
+        <span class="velocity-unit">neste projeto</span>
+      </section>
+    </div>
+
+  </div>
+
+  <!-- 2. Sugestões de sprints anteriores (anônimas) -->
+  <section class="card suggestions-card">
+    <div class="suggestions-header">
+      <h3>💡 Sugestões de sprints anteriores</h3>
+      <span class="badge-previous-sprint">Ainda não tomadas</span>
+    </div>
+    <p class="suggestions-subtitle">
+      @if (canManage()) {
+      Marque o que aconteceu com cada sugestão durante esta sprint:
+      } @else {
+      Sugestões do time que ainda não foram colocadas em prática:
+      }
+    </p>
+
+    <div class="suggestions-list">
+      @for (suggestion of suggestions(); track suggestion.trackingId) {
+      <div class="suggestion-item">
+        <p class="suggestion-text">"{{ suggestion.content }}" <span class="origin-tag">Sprint {{ suggestion.originSprintNumber }}</span></p>
+
+        <div class="suggestion-actions">
+          <button type="button" class="tag-btn tag-tomada" [class.active]="isActive(suggestion, 'tomada')"
+            [disabled]="!canManage() || isBusy()" (click)="selectSuggestionStatus(suggestion, 'tomada')">✓ Foi tomada</button>
+
+          <button type="button" class="tag-btn tag-util" [class.active]="isActive(suggestion, 'util')"
+            [disabled]="!canManage() || isBusy()" (click)="selectSuggestionStatus(suggestion, 'util')">💡 Foi útil</button>
+
+          <button type="button" class="tag-btn tag-nao-tomada" [class.active]="isActive(suggestion, 'nao-tomada')"
+            [disabled]="!canManage() || isBusy()" (click)="selectSuggestionStatus(suggestion, 'nao-tomada')">✕ Não foi tomada</button>
+
+          <button type="button" class="tag-btn tag-inutil" [class.active]="isActive(suggestion, 'inutil')"
+            [disabled]="!canManage() || isBusy()" (click)="selectSuggestionStatus(suggestion, 'inutil')">💡 Foi inútil</button>
+        </div>
+      </div>
+      } @empty {
+      <p class="empty-text">Nenhuma sugestão pendente das sprints anteriores.</p>
+      }
+    </div>
+  </section>
+
+  }
+</main>

@@ -1,0 +1,225 @@
+<main class="profile-container">
+
+  @if (loadError()) {
+  <div class="feedback error" role="alert">{{ loadError() }}</div>
+  }
+
+  <!-- 1. Card de Perfil Resumido & Métricas -->
+  <section class="card profile-header-card">
+    <div class="profile-top-info">
+      <!-- Avatar com Badge de Cargo -->
+      <div class="avatar-box">
+        <span class="avatar-text">{{ view().initials }}</span>
+        <span class="role-tag">{{ view().role }}</span>
+      </div>
+
+      <!-- Info Principal -->
+      <div class="user-main-info">
+        <h1 class="user-display-name">{{ view().name }}</h1>
+        <p class="user-email">{{ view().email }}</p>
+        <div class="user-dept">
+          <span>🏢</span> {{ view().department }}
+        </div>
+        <p class="user-bio">{{ view().bio }}</p>
+      </div>
+
+      <!-- Data de Registro -->
+      <div class="member-since">
+        <span class="since-label">MEMBRO DESDE</span>
+        <span class="since-date">{{ view().memberSince }}</span>
+      </div>
+    </div>
+
+    <!-- Grade de Métricas (Projetos, Sprints, Retros) -->
+    <div class="stats-grid">
+      <div class="stat-box">
+        <span class="stat-icon">📁</span>
+        <span class="stat-value">{{ projects().length }}</span>
+        <span class="stat-label">PROJETOS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Card de Dados Pessoais (Visualização / Edição) -->
+  <section class="card data-card">
+    <div class="card-header-action">
+      <h2 class="card-title">Dados pessoais</h2>
+      <button type="button" class="btn-edit" (click)="toggleEditProfile()">
+        {{ isEditingProfile() ? 'Cancelar' : 'Editar' }}
+      </button>
+    </div>
+
+    @if (profileFeedback()) {
+    <div class="feedback" [class.success]="profileFeedback()!.type === 'success'" [class.error]="profileFeedback()!.type === 'error'" role="status">
+      {{ profileFeedback()!.text }}
+    </div>
+    }
+
+    <!-- MODO VISUALIZAÇÃO -->
+    @if (!isEditingProfile()) {
+    <div class="details-grid">
+      <div class="detail-item">
+        <span class="detail-label">NOME</span>
+        <span class="detail-value">{{ view().name }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">E-MAIL</span>
+        <span class="detail-value">{{ view().email }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">EMPRESA</span>
+        <span class="detail-value">{{ view().company }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">DEPARTAMENTO</span>
+        <span class="detail-value">{{ view().department }}</span>
+      </div>
+
+      <div class="detail-item">
+        <span class="detail-label">TELEFONE</span>
+        <span class="detail-value">{{ view().phone }}</span>
+      </div>
+
+      <div class="detail-item full-width">
+        <span class="detail-label">BIO</span>
+        <span class="detail-value">{{ view().bio }}</span>
+      </div>
+    </div>
+    }
+
+    <!-- MODO EDIÇÃO (Reactive Form) -->
+    @if (isEditingProfile()) {
+    <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()" class="edit-profile-form">
+      <div class="details-grid">
+        <div class="form-group">
+          <label for="name">Nome</label>
+          <input id="name" type="text" formControlName="name" placeholder="Seu nome completo">
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input id="email" type="email" formControlName="email" placeholder="seu@email.com">
+        </div>
+
+        <div class="form-group">
+          <label for="department">Departamento</label>
+          <input id="department" type="text" formControlName="department" placeholder="Ex: Engenharia">
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Telefone</label>
+          <input id="phone" type="text" formControlName="phone" placeholder="(00) 00000-0000">
+        </div>
+
+        <div class="form-group full-width">
+          <label for="bio">Bio</label>
+          <textarea id="bio" formControlName="bio" rows="3" placeholder="Fale um pouco sobre você..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="toggleEditProfile()">Cancelar</button>
+        <button type="submit" class="btn-submit-password" [disabled]="profileForm.invalid || isSavingProfile()">
+          {{ isSavingProfile() ? 'Salvando...' : 'Salvar Alterações' }}
+        </button>
+      </div>
+    </form>
+    }
+  </section>
+
+  <!-- 3. Card de Alterar Senha -->
+  <section class="card password-card">
+    <h2 class="card-title">Alterar senha</h2>
+
+    <form [formGroup]="passwordForm" (ngSubmit)="onChangePassword()" class="password-form">
+      <!-- Senha Atual -->
+      <div class="form-group full-width">
+        <label for="currentPassword">Senha atual</label>
+        <div class="input-with-toggle">
+          <input 
+            [type]="showCurrentPassword() ? 'text' : 'password'" 
+            id="currentPassword" 
+            formControlName="currentPassword" 
+            placeholder="Sua senha atual">
+          <button type="button" class="toggle-btn" (click)="showCurrentPassword.set(!showCurrentPassword())">
+            {{ showCurrentPassword() ? 'Ocultar' : 'Mostrar' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Nova Senha + Confirmar (Linha dupla) -->
+      <div class="form-row">
+        <div class="form-group">
+          <label for="newPassword">Nova senha</label>
+          <div class="input-with-toggle">
+            <input 
+              [type]="showNewPassword() ? 'text' : 'password'" 
+              id="newPassword" 
+              formControlName="newPassword" 
+              placeholder="8 a 100 caracteres, com letras e números">
+            <button type="button" class="toggle-btn" (click)="showNewPassword.set(!showNewPassword())">
+              {{ showNewPassword() ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirmPassword">Confirmar nova senha</label>
+          <div class="input-with-toggle">
+            <input 
+              [type]="showConfirmPassword() ? 'text' : 'password'" 
+              id="confirmPassword" 
+              formControlName="confirmPassword" 
+              placeholder="Repita a nova senha">
+            <button type="button" class="toggle-btn" (click)="showConfirmPassword.set(!showConfirmPassword())">
+              {{ showConfirmPassword() ? 'Ocultar' : 'Mostrar' }}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      @if (passwordForm.errors?.['passwordMismatch'] && passwordForm.controls.confirmPassword.touched) {
+      <p class="field-error">As senhas não coincidem.</p>
+      }
+      @if (passwordFeedback()) {
+      <div class="feedback" [class.success]="passwordFeedback()!.type === 'success'" [class.error]="passwordFeedback()!.type === 'error'" role="status">
+        {{ passwordFeedback()!.text }}
+      </div>
+      }
+
+      <button type="submit" class="btn-submit-password" [disabled]="passwordForm.invalid || isSavingPassword()">
+        {{ isSavingPassword() ? 'Alterando...' : 'Alterar senha' }}
+      </button>
+    </form>
+  </section>
+
+  <!-- 4. Card de Meus Projetos -->
+  <section class="card my-projects-card">
+    <h2 class="card-title">Meus projetos</h2>
+
+    <div class="user-projects-list">
+      @for (proj of projects(); track proj.id) {
+      <div class="user-project-item" [routerLink]="['/projects', proj.id]">
+        <div class="project-info-group">
+          <span class="project-icon">📁</span>
+          <div class="project-names">
+            <h3 class="project-title">{{ proj.name }}</h3>
+            <span class="project-members-count">{{ proj.memberCount }} {{ proj.memberCount === 1 ? 'membro' : 'membros' }}</span>
+          </div>
+        </div>
+
+        <div class="project-sprint-badge">
+          <span class="sprint-dot"></span>
+          <span>{{ proj.isOwner ? 'Dono' : 'Participante' }}</span>
+        </div>
+      </div>
+      } @empty {
+      <p class="empty-text">Você ainda não participa de nenhum projeto.</p>
+      }
+    </div>
+  </section>
+
+</main>

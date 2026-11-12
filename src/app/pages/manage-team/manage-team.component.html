@@ -1,0 +1,59 @@
+<!-- Área de Conteúdo Principal -->
+<main class="page-container">
+  <!-- Título Principal -->
+  <div class="page-title-section">
+    <h1 class="page-title">Gerenciar equipe</h1>
+    <div class="project-sub-badge">
+      <span>{{ projectIcon }}</span>
+      <span>{{ project()?.name ?? 'Projeto' }}</span>
+    </div>
+  </div>
+
+  @if (isLoading()) {
+  <div class="card manage-card"><p class="hint-text">Carregando equipe...</p></div>
+  } @else if (errorMessage()) {
+  <div class="card manage-card">
+    <div class="alert-error" role="alert">{{ errorMessage() }}</div>
+    <button type="button" class="btn-action btn-remove" (click)="load()">Tentar novamente</button>
+  </div>
+  } @else {
+
+  @if (actionError()) {
+  <div class="alert-error" role="alert">{{ actionError() }}</div>
+  }
+
+  <!-- Membros atuais -->
+  <div class="card manage-card">
+    <h2 class="section-title">Membros do projeto ({{ members().length }})</h2>
+    <div class="members-list">
+      @for (member of members(); track member.userId) {
+      <div class="member-row selected">
+        <div class="member-info-group">
+          <span class="member-avatar">{{ initialsOf(member.fullName) }}</span>
+          <div class="member-details">
+            <span class="member-name">{{ member.fullName }}</span>
+            <span [class]="'role-badge ' + roleClass(member.role)">{{ roleLabel(member.role) }}</span>
+          </div>
+        </div>
+
+        @if (member.isOwner) {
+        <span class="owner-pill" title="O dono não pode ser removido enquanto for o dono">👑 Dono</span>
+        } @else {
+        <button type="button" class="btn-action btn-remove" [disabled]="busyUserId() === member.userId"
+          (click)="removeMember(member)">
+          {{ busyUserId() === member.userId ? '...' : 'Remover' }}
+        </button>
+        }
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Adicionar pessoas: busca dentro da empresa (sem e-mails) -->
+  <div class="card manage-card add-card">
+    <h2 class="section-title">Adicionar pessoas</h2>
+    <app-member-search [excludedIds]="memberIds()" [busyId]="busyUserId()" (add)="addMember($event)"></app-member-search>
+  </div>
+
+  }
+</main>

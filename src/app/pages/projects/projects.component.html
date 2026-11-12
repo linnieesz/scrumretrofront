@@ -1,0 +1,57 @@
+<main class="home-container">
+  <div class="page-title-section">
+    <div class="title-flex">
+      <div>
+        <h1 class="page-title">Meus projetos</h1>
+        <p class="page-subtitle">Selecione um projeto para ver a sprint atual</p>
+      </div>
+
+      <!-- Botão "Novo projeto" na linha do título (Admin/Manager, quando já existem projetos) -->
+      @if (isAdminOrManager() && hasProjects() && !isLoading()) {
+      <button type="button" class="btn-create-project" (click)="createProject()">
+        <span>+</span> Novo projeto
+      </button>
+      }
+    </div>
+  </div>
+
+  <!-- Carregando -->
+  @if (isLoading()) {
+  <div class="center-state">
+    <p class="state-text">Carregando projetos...</p>
+  </div>
+  }
+
+  <!-- Erro ao carregar -->
+  @else if (errorMessage()) {
+  <div class="center-state">
+    <span class="state-icon">⚠️</span>
+    <h3 class="state-title">Não foi possível carregar</h3>
+    <p class="state-text">{{ errorMessage() }}</p>
+    <button type="button" class="btn-create-project" (click)="loadProjects()">Tentar novamente</button>
+  </div>
+  }
+
+  <!-- Grid de cards -->
+  @else if (hasProjects()) {
+  <div class="projects-grid">
+    @for (proj of projects(); track proj.id) {
+    <app-project-card [project]="proj" (cardClick)="openProject($event)"></app-project-card>
+    }
+  </div>
+  }
+
+  <!-- Estado vazio -->
+  @else {
+  <div class="center-state">
+    <span class="state-icon">📁</span>
+    <h3 class="state-title">Nenhum projeto encontrado</h3>
+    @if (isAdminOrManager()) {
+    <p class="state-text">Você ainda não participa de nenhum projeto. Comece criando o primeiro.</p>
+    <button type="button" class="btn-create-project" (click)="createProject()">+ Crie um projeto</button>
+    } @else {
+    <p class="state-text">Você ainda não foi adicionado a nenhum projeto. Peça a um Manager ou Admin para inserir seu e-mail em um projeto.</p>
+    }
+  </div>
+  }
+</main>

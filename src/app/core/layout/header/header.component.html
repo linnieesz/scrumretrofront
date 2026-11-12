@@ -1,0 +1,55 @@
+<header class="app-header-auth">
+  <div class="header-content">
+
+    <!-- Lado Esquerdo: Marca ou Breadcrumb de Voltar -->
+    <div class="header-left">
+      @if (!currentProject()) {
+      <a routerLink="/projects" class="brand-link">
+        <span class="brand-text">Sprint<strong>Retro</strong></span>
+      </a>
+      } @else {
+      @let project = currentProject()!;
+      <ng-container>
+        <a routerLink="/projects" class="btn-back" title="Voltar aos projetos">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          <span class="brand-text">Sprint<strong>Retro</strong></span>
+        </a>
+        <span class="breadcrumb-divider">/</span>
+        <span class="project-badge">
+          <span>{{ project.icon }}</span>
+          <span>{{ project.name }}</span>
+        </span>
+      </ng-container>
+      }
+    </div>
+
+    <!-- Lado Direito: Ações / Perfil -->
+    <div class="header-right">
+      @if (currentProject() && isManagerOrAdmin()) {
+      <button class="btn-team" [routerLink]="['/projects', currentProject()!.id, 'team']">
+        👥 Equipe
+      </button>
+      }
+
+      @if (isAdmin()) {
+      <button class="btn-team" routerLink="/companies">
+        🏢 Empresas
+      </button>
+      }
+
+      <div class="user-profile" routerLink="/profile">
+        <div class="avatar-header">{{ initials() }}</div>
+        <div class="user-details">
+          <span class="user-name">{{ currentUser()?.fullName }}</span>
+          <span class="user-role">{{ roleText() }}</span>
+        </div>
+        <button type="button" class="btn-logout" (click)="logout($event)">Sair</button>
+      </div>
+    </div>
+
+  </div>
+</header>

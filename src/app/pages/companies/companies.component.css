@@ -1,0 +1,78 @@
+.page-container { max-width: 640px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem 1.5rem; }
+.page-title-section { text-align: center; margin-bottom: 1.5rem; }
+.page-title { font-size: 2.25rem; font-weight: 800; color: #2B1820; margin: 0 0 0.35rem 0; font-family: serif; }
+.page-subtitle { color: #5C4B23; font-size: 1rem; margin: 0; }
+
+.toolbar { display: flex; justify-content: flex-end; margin-bottom: 1rem; }
+
+.card { background-color: #FFFFFF; border-radius: 16px; padding: 1.25rem 1.5rem; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03); box-sizing: border-box; }
+.form-card { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.25rem; }
+
+.form-group { display: flex; flex-direction: column; }
+.form-group label { font-size: 0.8rem; font-weight: 600; color: #2B1820; margin-bottom: 0.3rem; }
+.required { color: #8C4366; }
+.optional { color: #A39B91; font-weight: normal; font-size: 0.75rem; }
+
+input[type="text"] {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #EAE2D8;
+  border-radius: 8px;
+  background-color: #FAFAFA;
+  font-size: 0.85rem;
+  outline: none;
+  box-sizing: border-box;
+}
+input:focus { border-color: #8C4366; background-color: #FFFFFF; }
+input.invalid { border-color: #C62828; }
+.input-hint { font-size: 0.7rem; color: #8C827A; margin-top: 0.25rem; }
+.error-msg { color: #C62828; font-size: 0.7rem; margin-top: 0.25rem; }
+
+.btn-primary {
+  background-color: #8C4366;
+  color: #FFFFFF;
+  border: none;
+  padding: 0.7rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.btn-primary:hover:not(:disabled) { background-color: #723452; }
+.btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.btn-secondary {
+  background-color: #EAE5DC;
+  color: #5C5248;
+  border: none;
+  padding: 0.5rem 1.1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.btn-secondary:hover:not(:disabled) { background-color: #DFD8CC; }
+.btn-secondary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.company-list { display: flex; flex-direction: column; gap: 0.75rem; }
+.company-row { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+.company-row.inactive { opacity: 0.65; }
+.company-info { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; }
+.company-name { font-size: 1rem; font-weight: 800; color: #2B1820; }
+.company-meta { font-size: 0.75rem; color: #8C827A; }
+
+.state-box { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 0.75rem; min-height: 25vh; justify-content: center; color: #5C4B23; }
+.state-icon { font-size: 3rem; }
+
+.alert-error {
+  background-color: #FFEBEE;
+  border: 1px solid #F3C6CB;
+  color: #C62828;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

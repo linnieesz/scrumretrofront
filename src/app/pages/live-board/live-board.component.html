@@ -1,0 +1,79 @@
+
+
+<!-- Área do Quadro ao Vivo -->
+<main class="page-container">
+  <!-- Título e Status de Participantes -->
+  <div class="board-top-bar">
+    <div class="board-title-group">
+      <h1 class="board-title">Quadro ao vivo</h1>
+      <span class="live-indicator">
+        <span class="pulse-dot"></span> Ao vivo
+      </span>
+    </div>
+    <div class="top-bar-actions">
+    <div class="participants-badge">
+      👥 {{ participantsCount() }} {{ participantsCount() === 1 ? 'participante' : 'participantes' }}
+    </div>
+    <a class="btn-done" [routerLink]="['/projects', projectId]">✓ Concluído</a>
+    </div>
+  </div>
+
+  @if (sprint()) {
+  <div class="ceremony-bar">
+    <span class="ceremony-sprint">Sprint {{ sprint()!.number }} &middot; Retrospectiva</span>
+  </div>
+  }
+
+  @if (errorMessage()) {
+  <div class="alert-error" role="alert">{{ errorMessage() }}</div>
+  }
+
+  @if (isLoading()) {
+  <div class="state-box"><p>Carregando quadro...</p></div>
+  } @else if (!sprint()) {
+  <div class="state-box">
+    <span class="state-icon">🗓️</span>
+    <p>Este projeto ainda não tem sprint, então não há cards para mostrar.</p>
+    <a class="btn-back-link" [routerLink]="['/projects', projectId]">Voltar ao projeto</a>
+  </div>
+  } @else {
+
+  <!-- Grid das Colunas Kanban -->
+  <div class="kanban-board">
+    @for (col of columns(); track col.type) {
+    <div [class]="'kanban-column ' + col.colorClass">
+      
+      <!-- Cabeçalho da Coluna -->
+      <div class="column-header">
+        <div class="column-title-wrapper">
+          <span class="column-icon">{{ col.icon }}</span>
+          <h2 class="column-title">{{ col.title }}</h2>
+        </div>
+        <span class="column-count">{{ col.cards.length }}</span>
+      </div>
+
+      <!-- Lista de Cards da Coluna -->
+      <div class="column-cards-list">
+        @for (card of col.cards; track card.id) {
+        <div class="kanban-card">
+          <p>{{ card.content }}</p>
+        </div>
+        } @empty {
+        <p class="empty-col">Sem cards</p>
+        }
+      </div>
+
+    </div>
+    }
+  </div>
+  }
+
+  <!-- Rodapé do Quadro -->
+  <div class="board-footer-notice">
+    🔒 Todas as respostas são anônimas e irrastreáveis
+  </div>
+
+  <div class="board-done-container">
+    <a class="btn-done" [routerLink]="['/projects', projectId]">✓ Concluído</a>
+  </div>
+</main>

@@ -1,0 +1,115 @@
+.layout-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--color-bg, #F8D16D);
+}
+
+.app-header-auth {
+  background-color: #8C4366;
+  color: #FFFFFF;
+  padding: 0.75rem 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left, .header-right {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-link, .btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+.brand-text { font-weight: 400; }
+.brand-text strong { font-weight: 800; }
+
+.breadcrumb-divider { opacity: 0.5; }
+
+.project-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.btn-team {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  border: none;
+  padding: 0.4rem 0.85rem;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-team:hover { background-color: rgba(255, 255, 255, 0.3); }
+
+/* Perfil */
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.user-profile:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.avatar-header {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.user-details { display: flex; flex-direction: column; }
+.user-name { font-size: 0.8rem; font-weight: 700; }
+.user-role { font-size: 0.68rem; opacity: 0.8; }
+
+.btn-logout {
+  color: #FFFFFF;
+  opacity: 0.8;
+  font-size: 0.8rem;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+.btn-logout:hover { opacity: 1; text-decoration: underline; }
+
+.layout-content {
+  flex: 1;
+}

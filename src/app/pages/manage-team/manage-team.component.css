@@ -1,0 +1,242 @@
+/* Header Vinho */
+.detail-header {
+  background-color: #8C4366;
+  color: #FFFFFF;
+  padding: 0.75rem 2rem;
+}
+
+.header-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.btn-back {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.breadcrumb-divider { opacity: 0.5; }
+
+.project-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(255, 255, 255, 0.15);
+  padding: 0.25rem 0.65rem;
+  border-radius: 6px;
+  font-size: 0.85rem;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.avatar-header {
+  width: 30px;
+  height: 30px;
+  background-color: rgba(255, 255, 255, 0.25);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.user-details { display: flex; flex-direction: column; }
+.user-name { font-size: 0.8rem; font-weight: 700; }
+.user-role { font-size: 0.68rem; opacity: 0.8; }
+.btn-logout { color: #FFFFFF; opacity: 0.8; font-size: 0.8rem; text-decoration: none; margin-left: 0.25rem; }
+
+/* Layout da Página */
+.page-container {
+  max-width: 540px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 4rem 1.5rem;
+}
+
+.page-title-section {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #2B1820;
+  margin: 0 0 0.35rem 0;
+  font-family: serif;
+}
+
+.project-sub-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.85rem;
+  color: #5C4B23;
+  font-weight: 600;
+}
+
+/* Card e Lista */
+.card {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+  box-sizing: border-box;
+}
+
+.members-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.member-row {
+  background-color: #F9F8F6;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 0.85rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+/* Borda avermelhada/rosa quando o membro está selecionado/adicionado no grupo */
+.member-row.selected {
+  background-color: #FAF4F6;
+  border-color: #EBDADF;
+}
+
+.member-info-group {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.member-avatar {
+  width: 36px;
+  height: 36px;
+  background-color: #8C4366;
+  color: #FFFFFF;
+  border-radius: 50%;
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.member-name {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #2B1820;
+}
+
+.role-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 10px;
+  margin-top: 0.15rem;
+}
+
+.role-badge.admin { background-color: #2B1820; color: #FFFFFF; }
+.role-badge.manager { background-color: #8C4366; color: #FFFFFF; }
+.role-badge.membro { background-color: #EAE5DC; color: #6D6359; }
+
+/* Botões de Ação */
+.btn-action {
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s, background-color 0.2s;
+}
+
+/* Estilo do Botão "Remover" */
+.btn-remove {
+  background-color: #8C4366;
+  color: #FFFFFF;
+}
+
+.btn-remove:hover {
+  background-color: #723452;
+}
+
+/* Estilo do Botão "Adicionar" */
+.btn-add {
+  background-color: #EAE5DC;
+  color: #5C5248;
+}
+
+.btn-add:hover {
+  background-color: #DFD8CC;
+}
+/* Novos elementos (seções, busca, estados) */
+.manage-card + .manage-card { margin-top: 1.25rem; }
+.section-title { font-size: 1rem; font-weight: 800; color: #2B1820; margin: 0 0 1rem 0; }
+.members-list + .members-list { margin-top: 0.85rem; }
+.add-card .search-input { margin-bottom: 1rem; }
+
+.search-input {
+  width: 100%;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #EAE2D8;
+  border-radius: 8px;
+  background-color: #FAFAFA;
+  font-size: 0.85rem;
+  outline: none;
+  box-sizing: border-box;
+}
+.search-input:focus { border-color: #8C4366; background-color: #FFFFFF; }
+
+.member-email { font-size: 0.72rem; color: #8C827A; }
+.hint-text { color: #8C827A; font-size: 0.85rem; text-align: center; margin: 0.5rem 0; }
+
+.owner-pill {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #5C5248;
+  background-color: #EAE5DC;
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+}
+
+.btn-action:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.alert-error {
+  background-color: #FFEBEE;
+  border: 1px solid #F3C6CB;
+  color: #C62828;
+  padding: 0.65rem 0.85rem;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}

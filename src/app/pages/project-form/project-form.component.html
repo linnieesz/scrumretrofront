@@ -1,0 +1,92 @@
+<main class="page-container">
+  <div class="page-title-section">
+    <h1 class="page-title">{{ isEdit ? 'Editar projeto' : 'Novo projeto' }}</h1>
+    <p class="page-subtitle">
+      {{ isEdit ? 'Atualize os dados e gerencie quem participa das cerimônias' : 'Defina o projeto e quem vai participar das cerimônias' }}
+    </p>
+  </div>
+
+  @if (isLoading()) {
+  <div class="card form-card"><p class="hint-text">Carregando projeto...</p></div>
+  } @else {
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="card form-card">
+    @if (errorMessage()) {
+    <div class="alert-error" role="alert">{{ errorMessage() }}</div>
+    }
+
+    <div class="form-group">
+      <label for="name">Nome do projeto <span class="required">*</span></label>
+      <input id="name" type="text" formControlName="name" placeholder="Plataforma Digital"
+        [class.invalid]="form.controls.name.invalid && form.controls.name.touched">
+      @if (form.controls.name.invalid && form.controls.name.touched) {
+      <small class="error-msg">Informe o nome do projeto (até 150 caracteres).</small>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="description">Descrição <span class="optional">(opcional)</span></label>
+      <textarea id="description" formControlName="description" rows="3"
+        placeholder="Qual é o objetivo deste projeto?"></textarea>
+    </div>
+
+    @if (isAdmin()) {
+    <div class="form-group">
+      <label for="ownerId">Dono do projeto</label>
+      <select id="ownerId" formControlName="ownerId">
+        @if (!isEdit) {
+        <option value="">Eu mesmo</option>
+        }
+        @for (o of ownerOptions(); track o.id) {
+        <option [value]="o.id">{{ o.fullName }} ({{ roleLabel(o.role) }})</option>
+        }
+      </select>
+      <span class="input-hint">Só o Admin cria projetos em nome de outra pessoa ou transfere a propriedade. O dono sempre é membro.</span>
+    </div>
+    }
+
+    <!-- Membros -->
+    <div class="form-group">
+      <label>Membros
+        <span class="optional">{{ isEdit ? '(adicionar e remover é salvo na hora)' : '(você entra automaticamente)' }}</span>
+      </label>
+    </div>
+
+    @if (selectedMembers().length > 0) {
+    <div class="members-list">
+      @for (m of selectedMembers(); track m.id) {
+      <div class="member-row selected">
+        <div class="member-info-group">
+          <span class="member-avatar">{{ initialsOf(m.fullName) }}</span>
+          <div class="member-details">
+            <span class="member-name">{{ m.fullName }}</span>
+            <span [class]="'role-badge ' + roleClass(m.role)">{{ roleLabel(m.role) }}</span>
+          </div>
+        </div>
+        @if (m.isOwner) {
+        <span class="owner-pill" title="O dono não pode ser removido enquanto for o dono">👑 Dono</span>
+        } @else {
+        <button type="button" class="btn-action btn-remove" [disabled]="busyUserId() === m.id"
+          (click)="removeMember(m)">{{ busyUserId() === m.id ? '...' : 'Remover' }}</button>
+        }
+      </div>
+      }
+    </div>
+    }
+
+    <!-- Busca dentro da empresa: não há lista de e-mails -->
+    <app-member-search [excludedIds]="excludedIds()" [busyId]="busyUserId()" (add)="addMember($event)"
+      (companyChange)="onSearchCompanyChange($event)"></app-member-search>
+
+    <div class="form-actions">
+      <a [routerLink]="isEdit ? ['/projects', projectId] : ['/projects']" class="btn-secondary">{{ isEdit ? 'Voltar' : 'Cancelar' }}</a>
+      <button type="submit" class="btn-primary" [disabled]="form.invalid || isSubmitting()">
+        @if (isSubmitting()) {
+        {{ isEdit ? 'Salvando...' : 'Criando...' }}
+        } @else {
+        {{ isEdit ? 'Salvar alterações' : 'Criar projeto' }}
+        }
+      </button>
+    </div>
+  </form>
+  }
+</main>

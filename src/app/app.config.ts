@@ -8,7 +8,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
-    // Uma única chamada: a duplicada anterior (sem interceptor) conflitava com esta.
     provideHttpClient(withFetch(), withInterceptors([authInterceptor]))
   ]
 };

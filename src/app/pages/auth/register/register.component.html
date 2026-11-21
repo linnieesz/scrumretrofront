@@ -65,6 +65,11 @@
             </select>
             @if (fieldInvalid('companyId')) {
             <small class="error-msg">Selecione a empresa.</small>
+            } @else if (companiesError()) {
+            <small class="error-msg">
+              {{ companiesError() }}
+              <button type="button" class="link-retry" (click)="loadCompanies()">Tentar novamente</button>
+            </small>
             } @else if (companiesLoaded() && companies().length === 0) {
             <small class="error-msg">Nenhuma empresa cadastrada ainda. Peça a um administrador para criar a sua.</small>
             }

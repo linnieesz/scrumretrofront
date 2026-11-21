@@ -262,3 +262,15 @@ select {
 }
 select:focus { border-color: #8C4366; background-color: #FFFFFF; }
 select.invalid { border-color: #C62828; }
+
+.link-retry {
+  background: none;
+  border: none;
+  padding: 0;
+  margin-left: 0.35rem;
+  color: #8C4366;
+  font-size: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  cursor: pointer;
+}

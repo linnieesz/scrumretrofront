@@ -6,7 +6,6 @@ import { parseHttpError } from '../../../core/utils/http-error';
 import { initialsOf } from '../../../core/utils/role.utils';
 import { CompanyOption, RegisterRequest, RoleOption, UserRole } from '../../../models';
 
-/** Tipos exibidos enquanto /api/auth/roles não responde (ou se falhar). Admin nunca é aceito no cadastro público. */
 const FALLBACK_ROLES: RoleOption[] = [
   { value: 'Member', label: 'Membro', description: 'Participa das cerimônias e preenche seus cards', allowedOnRegistration: true },
   { value: 'Manager', label: 'Manager', description: 'Facilita sprints e gerencia a equipe', allowedOnRegistration: true }
@@ -44,6 +43,7 @@ export class RegisterComponent implements OnInit {
   readonly roles = signal<RoleOption[]>(FALLBACK_ROLES);
   readonly companies = signal<CompanyOption[]>([]);
   readonly companiesLoaded = signal(false);
+  readonly companiesError = signal('');
   readonly roleIcons = ROLE_ICONS;
 
   registerForm = this.fb.nonNullable.group({
@@ -59,14 +59,7 @@ export class RegisterComponent implements OnInit {
   }, { validators: passwordsMatch });
 
   ngOnInit(): void {
-    // Picker de empresa: lista as empresas ativas conforme o Admin as cria.
-    this.authService.getCompanies().subscribe({
-      next: list => {
-        this.companies.set(list);
-        this.companiesLoaded.set(true);
-      },
-      error: () => this.companiesLoaded.set(true)
-    });
+    this.loadCompanies();
 
     // Tipos de acesso vêm da API; o backend informa quais podem ser escolhidos no cadastro público.
     this.authService.getRoles().subscribe({
@@ -81,6 +74,22 @@ export class RegisterComponent implements OnInit {
         }
       },
       error: () => { /* mantém os tipos padrão; o backend valida de qualquer forma */ }
+    });
+  }
+
+  /** Picker de empresa: lista as empresas ativas conforme o Admin as cria. Mostra o erro real se a API falhar. */
+  loadCompanies(): void {
+    this.companiesLoaded.set(false);
+    this.companiesError.set('');
+    this.authService.getCompanies().subscribe({
+      next: list => {
+        this.companies.set(list);
+        this.companiesLoaded.set(true);
+      },
+      error: err => {
+        this.companiesError.set(parseHttpError(err, 'Não foi possível carregar as empresas.').message);
+        this.companiesLoaded.set(true);
+      }
     });
   }
 
